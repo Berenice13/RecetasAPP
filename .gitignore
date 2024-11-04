@@ -1,0 +1,11 @@
+# Ignorar bin y obj en todas las subcarpetas
+**/bin/
+**/obj/
+
+# Archivos específicos de .NET
+*.exe
+*.dll
+*.pdb
+
+# Configuración de Visual Studio Code
+.vscode/

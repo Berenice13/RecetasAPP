@@ -1,5 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace RecetasApp.Models;
 
@@ -14,8 +16,7 @@ public class Comentario
     [ForeignKey("RecetaId")]
     public Receta? Receta { get; set; }
 
-    public string Contenido { get; set; }
-
+    public string? Contenido { get; set; }
     [DataType(DataType.Date)]
     public DateTime FechaComentario { get; set; } = DateTime.Now; 
 

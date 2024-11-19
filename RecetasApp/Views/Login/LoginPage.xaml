@@ -1,0 +1,79 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecetasApp.Views.LoginPage"
+             BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
+            <!-- Ícono del chef -->
+            <Image Source="chef_icon.png" HeightRequest="100" WidthRequest="100" />
+
+            <!-- Nombre de la App -->
+            <Label Text="RecetasApp"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   TextColor="Black" />
+            <Label Text="Tu compañero culinario digital"
+                   FontSize="16"
+                   HorizontalTextAlignment="Center"
+                   FontAttributes="Italic"
+                   TextColor="Gray" />
+
+            <!-- Contenedor del formulario -->
+            <Frame BackgroundColor="#e4e4e4" CornerRadius="20" Padding="20" BorderColor="Transparent" HasShadow="True">
+                <VerticalStackLayout Spacing="20">
+                    <!-- Botones de navegación -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Button Text="Iniciar sesión"
+                                BackgroundColor="#84cbea"
+                                TextColor="White"
+                                FontSize="16"
+                                CornerRadius="25"
+                                WidthRequest="150"
+                                BorderWidth="0" />
+                        <Button Text="Registrarse"
+                                FontSize="16"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                WidthRequest="150"
+                                CornerRadius="25" 
+                                BorderWidth="0"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Campos del formulario -->
+                    <Frame CornerRadius="20" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                        <Entry x:Name="emailEntry" Placeholder="Correo electrónico"
+                               BackgroundColor="White"
+                               TextColor="Black"
+                               HeightRequest="50"/>
+                    </Frame>
+                    <Frame CornerRadius="20" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                        <Entry x:Name="passwordEntry" Placeholder="Contraseña"
+                               IsPassword="True"
+                               BackgroundColor="White"
+                               TextColor="Black"
+                               HeightRequest="50"/>
+                    </Frame>
+
+                    <!-- Botón de acción -->
+                    <Frame Padding="40,0" BackgroundColor="Transparent" BorderColor="Transparent">
+                        <Button Text="INICIAR SESIÓN"
+                                FontSize="20"
+                                BackgroundColor="#84cbea"
+                                TextColor="White"
+                                CornerRadius="30"
+                                HeightRequest="50" 
+                                FontAttributes="Bold"
+                                Clicked="OnLoginClicked"/>
+                    </Frame>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Íconos de navegación -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                <Image Source="fork_icon.png" HeightRequest="30" WidthRequest="30" />
+                <Image Source="book_icon.png" HeightRequest="30" WidthRequest="30" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

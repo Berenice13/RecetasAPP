@@ -9,6 +9,6 @@ public class Categoria
     public int Id { get; set; }
 
     [MaxLength(80)]
-    public string Nombre { get; set; }
+    public string? Nombre { get; set; }
 
 }

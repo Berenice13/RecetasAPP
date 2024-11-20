@@ -9,18 +9,18 @@ public class Usuario
     public int Id { get; set; }
 
     [MaxLength(80)]
-    public string Nombre { get; set; }
+    public string? Nombre { get; set; }
 
     [EmailAddress]
-    public string Email { get; set; }
+    public string? Email { get; set; }
 
     [DataType(DataType.Password)]
-    public string Password { get; set; }
+    public string? Password { get; set; }
 
     [DataType(DataType.Date)]
     public DateTime FechaRegistro { get; set; } = DateTime.Now;
 
-    public string Descripcion { get; set; }
+    public string? Descripcion { get; set; }
 
-    public string Imagen { get; set; } 
+    public string? Imagen { get; set; } 
 }

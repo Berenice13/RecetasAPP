@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RecetasApp.Views.LoginPage"
              BackgroundColor="White">
-    <ScrollView>
+    <ScrollView VerticalOptions="Fill" HorizontalOptions="Fill">
         <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
             <!-- Ícono del chef -->
             <Image Source="chef_icon.png" HeightRequest="100" WidthRequest="100" />
@@ -25,47 +25,109 @@
                     <!-- Botones de navegación -->
                     <HorizontalStackLayout Spacing="10">
                         <Button Text="Iniciar sesión"
-                                BackgroundColor="#84cbea"
-                                TextColor="White"
                                 FontSize="16"
                                 CornerRadius="25"
                                 WidthRequest="150"
-                                BorderWidth="0" />
-                        <Button Text="Registrarse"
-                                FontSize="16"
+                                BorderWidth="0"
                                 BackgroundColor="Transparent"
                                 TextColor="Black"
+                                Clicked="OnLoginButtonClicked">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsLoginVisible}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="#84cbea" />
+                                    <Setter Property="TextColor" Value="White" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsLoginVisible}" Value="False">
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                    <Setter Property="TextColor" Value="Black" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+
+                        <Button Text="Registrarse"
+                                FontSize="16"
+                                CornerRadius="25"
                                 WidthRequest="150"
-                                CornerRadius="25" 
-                                BorderWidth="0"/>
+                                BorderWidth="0"
+                                BackgroundColor="Transparent"
+                                TextColor="Black"
+                                Clicked="OnRegisterButtonClicked">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsRegisterVisible}" Value="True">
+                                    <Setter Property="BackgroundColor" Value="#84cbea" />
+                                    <Setter Property="TextColor" Value="White" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsRegisterVisible}" Value="False">
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                    <Setter Property="TextColor" Value="Black" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
                     </HorizontalStackLayout>
 
+                    
+
                     <!-- Campos del formulario -->
-                    <Frame CornerRadius="20" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
-                        <Entry x:Name="emailEntry" Placeholder="Correo electrónico"
-                               BackgroundColor="White"
-                               TextColor="Black"
-                               HeightRequest="50"/>
-                    </Frame>
-                    <Frame CornerRadius="20" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
-                        <Entry x:Name="passwordEntry" Placeholder="Contraseña"
-                               IsPassword="True"
-                               BackgroundColor="White"
-                               TextColor="Black"
-                               HeightRequest="50"/>
+                    <Frame BackgroundColor="#e4e4e4" CornerRadius="20" Padding="0"  BorderColor="Transparent" HasShadow="True" IsVisible="{Binding IsLoginVisible}">
+                        <VerticalStackLayout Spacing="20">
+                            <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                                <Entry x:Name="emailEntry" Placeholder="Correo electrónico"
+                                    BackgroundColor="White"
+                                    TextColor="Black"
+                                    HeightRequest="50"
+                                    Completed="OnEmailCompleted" />
+                            </Frame>
+                            <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                                <Entry x:Name="passwordEntry" Placeholder="Contraseña"
+                                    IsPassword="True"
+                                    BackgroundColor="White"
+                                    TextColor="Black"
+                                    HeightRequest="50" />
+                            </Frame>
+                            <Button Text="INICIAR SESIÓN"
+                                    FontSize="20"
+                                    BackgroundColor="#84cbea"
+                                    TextColor="White"
+                                    CornerRadius="30"
+                                    HeightRequest="50"
+                                    FontAttributes="Bold"
+                                    Clicked="OnLoginClicked" />
+                        </VerticalStackLayout>
                     </Frame>
 
-                    <!-- Botón de acción -->
-                    <Frame Padding="40,0" BackgroundColor="Transparent" BorderColor="Transparent">
-                        <Button Text="INICIAR SESIÓN"
-                                FontSize="20"
-                                BackgroundColor="#84cbea"
-                                TextColor="White"
-                                CornerRadius="30"
-                                HeightRequest="50" 
-                                FontAttributes="Bold"
-                                Clicked="OnLoginClicked"/>
+                     <!-- Formulario de registro -->
+                    <Frame BackgroundColor="#e4e4e4" CornerRadius="20" Padding="0" BorderColor="Transparent" HasShadow="True" IsVisible="{Binding IsRegisterVisible}">
+                        <VerticalStackLayout Spacing="20">
+                            <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                                <Entry x:Name="registerNameEntry" Placeholder="Nombre completo"
+                                    BackgroundColor="White"
+                                    TextColor="Black"
+                                    HeightRequest="50" />
+                            </Frame>
+                            <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                                <Entry x:Name="registerEmailEntry" Placeholder="Correo electrónico"
+                                    BackgroundColor="White"
+                                    TextColor="Black"
+                                    HeightRequest="50" />
+                            </Frame>
+                            <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                                <Entry x:Name="registerPasswordEntry" Placeholder="Contraseña"
+                                    IsPassword="True"
+                                    BackgroundColor="White"
+                                    TextColor="Black"
+                                    HeightRequest="50" />
+                            </Frame>
+                            <Button Text="REGISTRARSE"
+                                    FontSize="20"
+                                    BackgroundColor="#84cbea"
+                                    TextColor="White"
+                                    CornerRadius="30"
+                                    HeightRequest="50"
+                                    FontAttributes="Bold"
+                                    Clicked="OnRegisterClicked" />
+                        </VerticalStackLayout>
                     </Frame>
+
                 </VerticalStackLayout>
             </Frame>
 

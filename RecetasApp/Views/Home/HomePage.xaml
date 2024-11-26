@@ -1,0 +1,34 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecetasApp.Views.HomePage"
+             BackgroundColor="White">
+
+    <StackLayout Padding="20">
+        <!-- Título de la Página -->
+        <Label Text="Bienvenido a RecetasApp"
+               FontSize="30"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <!-- Imagen -->
+        <Image Source="home_image.png"
+               HorizontalOptions="Center"
+               Margin="0,20,0,20"
+               HeightRequest="200"/>
+
+        <!-- Descripción breve -->
+        <Label Text="Explora las mejores recetas y comienza a cocinar."
+               FontSize="18"
+               HorizontalOptions="Center"
+               Margin="0,0,0,30"/>
+
+        <!-- Botón para navegar a otra página -->
+        <Button Text="Ver Recetas"
+                FontSize="18"
+                BackgroundColor="#4CAF50"
+                TextColor="White"
+                HorizontalOptions="Center"
+                Padding="10,15" />
+    </StackLayout>
+
+</ContentPage>

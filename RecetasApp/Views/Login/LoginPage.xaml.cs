@@ -3,6 +3,7 @@
     using RecetasApp.Services;
     using RecetasApp.Models;
     using Microsoft.Maui.Controls;
+    using System.Diagnostics;
 
     public partial class LoginPage : ContentPage
     {
@@ -23,14 +24,17 @@
                 // Crear un objeto con los datos de login
                 var loginData = new
                 {
-                    Email = email,
-                    Password = password
+                    email = email,
+                    password = password
                 };
 
                 // Llamamos al servicio para hacer login, esperando una respuesta con 'data' de tipo string (por ejemplo, un token)
-                var apiResponse = await _apiService.PostAsync<string>(ApiRoutes.ApiRoutes.StudentLogin.Login, loginData);
+                var apiResponse = await _apiService.PostAsync<string>("http://192.168.103.70:3333/login", loginData);
+                Debug.WriteLine("respuesta de la API");
+                Debug.WriteLine(apiResponse.Msg);
+                Debug.WriteLine(apiResponse.Data);
 
-                if (apiResponse.Status == "Success")
+                if (apiResponse.Response)
                 {
                     // Si el login fue exitoso, navega a otra página o guarda el token
                     await DisplayAlert("Éxito", "Inicio de sesión exitoso", "OK");
@@ -41,7 +45,7 @@
                 else
                 {
                     // Si el login falla, mostramos el mensaje de error devuelto por la API
-                    await DisplayAlert("Error", apiResponse.Error ?? "Error desconocido", "OK");
+                    await DisplayAlert("Error", apiResponse.Msg ?? "Error desconocido", "OK");
                 }
             }
             catch (Exception ex)

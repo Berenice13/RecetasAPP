@@ -1,9 +1,19 @@
+using System.Text.Json.Serialization;
+
 namespace RecetasApp.Models
 {
     public class ApiResponse<T>
     {
-        public string Status { get; set; }
-        public T Data { get; set; } // El tipo de 'data' puede variar, por eso es genérico
-        public string Error { get; set; }
+        [JsonPropertyName("status")]
+        public int Status { get; set; }
+
+        [JsonPropertyName("msg")]
+        public string Msg { get; set; }
+
+        [JsonPropertyName("data")]
+        public T Data { get; set; }
+
+        public bool Response { get; set; }
     }
+
 }

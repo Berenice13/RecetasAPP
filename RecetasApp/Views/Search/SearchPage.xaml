@@ -1,0 +1,58 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecetasApp.Views.SearchPage"
+             BackgroundColor="White">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="10" Spacing="15">
+                <Label Text="Explorar Recetas"
+                       Padding="10,10,1,1"
+                       FontSize="24"
+                       TextColor="Black"
+                       FontAttributes="Bold" />
+                <BoxView HeightRequest="1" BackgroundColor="#EAEAEA" HorizontalOptions="Fill" />
+                
+                <Frame CornerRadius="10" BorderColor="#EAEAEA" Padding="0" Background="Transparent">
+                    <SearchBar Placeholder="Buscar recetas" TextColor="Black"/>
+                </Frame>
+
+                <!-- CollectionView para mostrar las recetas dinámicamente -->
+                <CollectionView ItemsSource="{Binding Recetas}" 
+                                VerticalOptions="Fill">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="#FFDAD9D9" CornerRadius="10" Margin="0,10" Padding="10" BackgroundColor="White">
+                                <HorizontalStackLayout Spacing="10">
+                                    <!-- Imagen -->
+                                    <Image Source="{Binding Imagen}"
+                                           HeightRequest="100"
+                                           WidthRequest="100"
+                                           Aspect="AspectFill"
+                                           HorizontalOptions="Start" />
+
+                                    <!-- Contenido del texto -->
+                                    <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                                        <Label Text="{Binding Titulo}"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               TextColor="Black" />
+                                        <Label Text="{Binding Descripcion}"
+                                               FontSize="14"
+                                               TextColor="Gray" />
+                                        <Label Text="{Binding TiempoPreparacion, StringFormat='{0} min'}"
+                                               FontSize="12"
+                                               TextColor="Black" />
+                                        <Label Text="{Binding Dificultad}"
+                                               FontSize="12"
+                                               TextColor="Black" />
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

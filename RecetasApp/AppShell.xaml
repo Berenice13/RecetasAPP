@@ -7,13 +7,16 @@
        Title="RecetasApp">
 
     <TabBar>
-        <Tab Title="Inicio">
+        <Tab Title="Inicio" Icon="home.png">
             <ShellContent Route="home" ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
-        <Tab Title="Operaciones">
+        <Tab Title="Explorar" Icon="search.png">
+            <ShellContent ContentTemplate="{DataTemplate views:SearchPage}" />
+        </Tab>
+        <Tab Title="Top" Icon="top.png">
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
-        <Tab Title="Configuración">
+        <Tab Title="Perfil" Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
     </TabBar>

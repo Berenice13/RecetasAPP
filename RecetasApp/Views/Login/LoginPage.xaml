@@ -102,16 +102,38 @@
                                 <Entry x:Name="registerNameEntry" Placeholder="Nombre completo"
                                     BackgroundColor="White"
                                     TextColor="Black"
-                                    HeightRequest="50" />
+                                    HeightRequest="50" 
+                                    Completed="OnNameCompleted"/>
                             </Frame>
                             <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
                                 <Entry x:Name="registerEmailEntry" Placeholder="Correo electrónico"
                                     BackgroundColor="White"
                                     TextColor="Black"
-                                    HeightRequest="50" />
+                                    HeightRequest="50" 
+                                    Completed="OnEmailCompleted"/>
                             </Frame>
                             <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
-                                <Entry x:Name="registerPasswordEntry" Placeholder="Contraseña"
+                                <Grid>
+                                    <Entry x:Name="registerPasswordEntry" Placeholder="Contraseña"
+                                            IsPassword="True"
+                                            BackgroundColor="White"
+                                            TextColor="Black"
+                                            HeightRequest="50" />
+                                    <ImageButton BackgroundColor="Transparent"
+                                                    HorizontalOptions="End"
+                                                    VerticalOptions="Center"
+                                                    Clicked="OnTogglePasswordVisibilityClicked">
+                                        <ImageButton.Source>
+                                            <FontImageSource Glyph="&#xf06e;"
+                                                                FontFamily="FontAwesome"
+                                                                Size="20"
+                                                                Color="Black" />
+                                        </ImageButton.Source>
+                                    </ImageButton>
+                                </Grid>
+                                </Frame>
+                            <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
+                                <Entry x:Name="confirmRegisterPassword" Placeholder="Confirmar contraseña"
                                     IsPassword="True"
                                     BackgroundColor="White"
                                     TextColor="Black"

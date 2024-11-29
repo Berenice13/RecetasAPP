@@ -8,10 +8,10 @@ namespace RecetasApp.Models
         public int Status { get; set; }
 
         [JsonPropertyName("msg")]
-        public string Msg { get; set; }
+        public string? Msg { get; set; }
 
         [JsonPropertyName("data")]
-        public T Data { get; set; }
+        public T? Data { get; set; }
 
         public bool Response { get; set; }
     }

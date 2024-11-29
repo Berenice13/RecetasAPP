@@ -61,6 +61,13 @@
                 var email = emailEntry.Text; 
                 var password = passwordEntry.Text; 
 
+                // Validar que los campos no estén vacíos
+                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                {
+                    await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
+                    return;
+                }
+
                 if (!IsValidEmail(email))
                 {
                     await DisplayAlert("Error", "Por favor, ingresa un correo electrónico válido.", "OK");
@@ -76,45 +83,29 @@
                 }
 
                 var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.StudentLogin.Login;
-
-                Debug.WriteLine("URL: " + URL);
-
-
-                // Si el inicio de sesión es exitoso, navega a la página HomePage
-                Debug.WriteLine("Intentando navegar a HomePage...");
-                await Shell.Current.GoToAsync("//home");
-
-    
-
-                /*
-                // Crear un objeto con los datos de login
                 var loginData = new
                 {
                     email = email,
                     password = password
                 };
 
-                // Llamamos al servicio para hacer login, esperando una respuesta con 'data' de tipo string (por ejemplo, un token)
-                var apiResponse = await _apiService.PostAsync<string>("http://192.168.103.70:3333/login", loginData);
-                Debug.WriteLine("respuesta de la API");
-                Debug.WriteLine(apiResponse.Msg);
-                Debug.WriteLine(apiResponse.Data);
-
+                var apiResponse = await _apiService.PostAsync<string>(URL, loginData);
                 if (apiResponse.Response)
                 {
-                    // Si el login fue exitoso, navega a otra página o guarda el token
-                    await DisplayAlert("Éxito", "Inicio de sesión exitoso", "OK");
+                    // Cambio de la página principal a AppShell
+                    if (Application.Current is App app)
+                    {
+                        app.SetMainPageToAppShell();
+                    }
 
-                    // Si tienes un token, lo puedes almacenar
-                    var token = apiResponse.Data; // Este sería el token recibido
+                    // Navegar a la página de inicio dentro de AppShell
+                    await Shell.Current.GoToAsync("//home");
                 }
                 else
                 {
                     // Si el login falla, mostramos el mensaje de error devuelto por la API
-                    await DisplayAlert("Error", apiResponse.Msg ?? "Error desconocido", "OK");
+                    await DisplayAlert("Error", apiResponse.Msg ?? "Error al iniciar sesión.", "OK");
                 }
-                */
-
             }
             catch (Exception ex)
             {
@@ -126,25 +117,57 @@
         private async void OnRegisterClicked(object sender, EventArgs e)
         {
             try{
-                Debug.WriteLine("Intentando navegar a HomePage...");
+                var nombre = registerNameEntry.Text;
+                var email = registerEmailEntry.Text; 
+                var password = registerPasswordEntry.Text; 
 
-                // Aquí realizas el login con la API o validaciones locales
-                var loginSuccess = true; // Cambiar esta parte según tu lógica de login
+                // Validar que los campos no estén vacíos
+                if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                {
+                    await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
+                    return;
+                }
 
-                if (loginSuccess)
+
+                if (!IsValidEmail(email))
+                {
+                    await DisplayAlert("Error", "Por favor, ingresa un correo electrónico válido.", "OK");
+                    registerEmailEntry.Focus(); 
+                    return;
+                }
+
+                if (!IsValidPassword(password))
+                {
+                    await DisplayAlert("Error", "La contraseña debe tener al menos 6 caracteres.", "OK");
+                    registerPasswordEntry.Focus();
+                    return;
+                }
+
+                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.StudentLogin.Register;
+                var loginData = new
+                {
+                    nombre = nombre,
+                    email = email,
+                    password = password
+                };
+
+                var apiResponse = await _apiService.PostAsync<string>(URL, loginData);
+                if (apiResponse.Response)
                 {
                     // Cambio de la página principal a AppShell
-                    (Application.Current as App).SetMainPageToAppShell();
+                    if (Application.Current is App app)
+                    {
+                        app.SetMainPageToAppShell();
+                    }
 
                     // Navegar a la página de inicio dentro de AppShell
                     await Shell.Current.GoToAsync("//home");
                 }
                 else
                 {
-                    await DisplayAlert("Error", "Login fallido", "OK");
+                    // Si el login falla, mostramos el mensaje de error devuelto por la API
+                    await DisplayAlert("Error", apiResponse.Msg ?? "Error al iniciar sesión.", "OK");
                 }
-
-
             } 
             catch (Exception ex)
             {
@@ -153,9 +176,18 @@
             }
         }
 
+        private void OnNameCompleted(object sender, EventArgs e)
+        {
+            registerEmailEntry.Focus(); 
+        }
+
         private void OnEmailCompleted(object sender, EventArgs e)
         {
-            passwordEntry.Focus(); 
+            if(IsLoginVisible){
+                passwordEntry.Focus(); 
+            } else{
+                registerPasswordEntry.Focus();
+            }
         }
 
         private bool IsValidEmail(string email)
@@ -171,6 +203,11 @@
         private bool IsValidPassword(string password)
         {
             return !string.IsNullOrEmpty(password) && password.Length >= 6;
+        }
+
+        private void OnTogglePasswordVisibilityClicked(object sender, EventArgs e)
+        {
+            registerPasswordEntry.IsPassword = !registerPasswordEntry.IsPassword;
         }
 
     }

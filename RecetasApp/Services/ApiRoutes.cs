@@ -7,5 +7,6 @@ public static class ApiRoutes
     public static class StudentLogin
     {
         public const string Login = "/login";
+        public const string Register = "/register";
     }
 }

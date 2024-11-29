@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -20,74 +21,60 @@ namespace RecetasApp.Services
         }
 
         // Método genérico para hacer una solicitud POST y deserializar la respuesta
-        public async Task<ApiResponse<T>> PostAsync<T>(string endpoint, object data)
-        {   
+        public async Task<ApiResponse<T>> PostAsync<T>(string endpoint, object data, bool useToken)
+        {
             try
             {
                 // Convertir el objeto a JSON
                 var json = JsonSerializer.Serialize(data);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                // Hacer la solicitud POST
-                Debug.WriteLine("intentando solicitud POST");
-                Debug.WriteLine(endpoint);
-                
+                // Configurar el token si es necesario
+                if (useToken)
+                {
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "tu_token_aqui");
+                }
+
+                // Realizar la solicitud POST
                 var response = await _httpClient.PostAsync(endpoint, content);
                 var responseContent = await response.Content.ReadAsStringAsync();
-                Debug.WriteLine("respuesta POST");
-                Debug.WriteLine(responseContent);
-                
-                var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent);
 
-                Debug.WriteLine(apiResponse);
+                // Mostrar respuesta para depuración
+                Debug.WriteLine($"Respuesta POST: {responseContent}");
 
+                // Deserializar la respuesta
+                var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true // Ignorar diferencias de mayúsculas/minúsculas en las propiedades
+                });
+
+                // Validar el estado HTTP y el status del API
                 if (response.IsSuccessStatusCode && apiResponse?.Status == 200)
                 {
-                    // Si es éxito, devolver el mensaje y los datos del servidor
-                    return new ApiResponse<T>
-                    {
-                        Response = true,
-                        Msg = apiResponse.Msg,
-                        Data = apiResponse.Data
-                    };
+                    return apiResponse;
                 }
                 else
                 {
-                    // Si hay error, devolver el mensaje del servidor o uno genérico
+                    // Devolver una respuesta de error si falla
                     return new ApiResponse<T>
                     {
-                        Response = false,
-                        Msg = apiResponse?.Msg,
+                        Status = apiResponse?.Status ?? (int)response.StatusCode,
+                        Msg = apiResponse?.Msg ?? "Error desconocido",
                         Data = default
                     };
                 }
-            }
-            catch (HttpRequestException httpEx)
-            {
-                Debug.WriteLine($"Request error: {httpEx.Message}");
-                if (httpEx.InnerException != null)
-                {
-                    Debug.WriteLine($"Inner exception: {httpEx.InnerException.Message}");
-                }
-                return new ApiResponse<T>
-                {
-                    Response = false,
-                    Msg = $"Error de conexión: {httpEx.Message}",
-                    Data = default
-                };
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error inesperado: {ex.Message}");
                 return new ApiResponse<T>
                 {
-                    Response = false,
+                    Status = 500,
                     Msg = $"Error inesperado: {ex.Message}",
                     Data = default
                 };
             }
-
-
         }
+
     }
 }

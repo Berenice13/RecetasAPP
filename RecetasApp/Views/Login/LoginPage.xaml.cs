@@ -71,14 +71,14 @@
                 if (!IsValidEmail(email))
                 {
                     await DisplayAlert("Error", "Por favor, ingresa un correo electrónico válido.", "OK");
-                    emailEntry.Focus(); // Enfocar el campo del correo si no es válido
+                    emailEntry.Focus();
                     return;
                 }
 
                 if (!IsValidPassword(password))
                 {
                     await DisplayAlert("Error", "La contraseña debe tener al menos 6 caracteres.", "OK");
-                    passwordEntry.Focus(); // Enfocar el campo de contraseña si no es válida
+                    passwordEntry.Focus();
                     return;
                 }
 
@@ -89,21 +89,20 @@
                     password = password
                 };
 
-                var apiResponse = await _apiService.PostAsync<string>(URL, loginData);
-                if (apiResponse.Response)
+                var apiResponse = await _apiService.PostAsync<Token>(URL, loginData, false);
+                Debug.WriteLine(apiResponse);
+
+                if (apiResponse.Status == 200 && apiResponse.Data != null)
                 {
-                    // Cambio de la página principal a AppShell
                     if (Application.Current is App app)
                     {
                         app.SetMainPageToAppShell();
                     }
 
-                    // Navegar a la página de inicio dentro de AppShell
                     await Shell.Current.GoToAsync("//home");
                 }
                 else
                 {
-                    // Si el login falla, mostramos el mensaje de error devuelto por la API
                     await DisplayAlert("Error", apiResponse.Msg ?? "Error al iniciar sesión.", "OK");
                 }
             }
@@ -120,14 +119,20 @@
                 var nombre = registerNameEntry.Text;
                 var email = registerEmailEntry.Text; 
                 var password = registerPasswordEntry.Text; 
+                var confirmPassword = confirmRegisterPassword.Text;
 
-                // Validar que los campos no estén vacíos
                 if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 {
                     await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
                     return;
                 }
 
+                if(password != confirmPassword)
+                {
+                    await DisplayAlert("Error", "Las contraseñas no coinciden.", "OK");
+                    confirmRegisterPassword.Focus();
+                    return;
+                }
 
                 if (!IsValidEmail(email))
                 {
@@ -144,29 +149,27 @@
                 }
 
                 var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.StudentLogin.Register;
-                var loginData = new
+                var registerData = new
                 {
                     nombre = nombre,
                     email = email,
-                    password = password
+                    password = password,
+                    password_confirmation = confirmPassword
                 };
 
-                var apiResponse = await _apiService.PostAsync<string>(URL, loginData);
-                if (apiResponse.Response)
-                {
-                    // Cambio de la página principal a AppShell
-                    if (Application.Current is App app)
-                    {
-                        app.SetMainPageToAppShell();
-                    }
+                var apiResponse = await _apiService.PostAsync<RegisterData>(URL, registerData, false);
 
-                    // Navegar a la página de inicio dentro de AppShell
-                    await Shell.Current.GoToAsync("//home");
+                Debug.WriteLine(apiResponse);
+                if (apiResponse.Status == 201 && apiResponse.Data != null)
+                {
+                    var usuarioRegistrado = apiResponse.Data.User;
+                    await LoginAsync(email, password);
                 }
                 else
                 {
-                    // Si el login falla, mostramos el mensaje de error devuelto por la API
-                    await DisplayAlert("Error", apiResponse.Msg ?? "Error al iniciar sesión.", "OK");
+                    // Si el registro falla, mostramos el mensaje de error devuelto por la API
+                    var errorMessage = apiResponse?.Msg ?? "Error al registrar usuario.";
+                    await DisplayAlert("Error", errorMessage, "OK");
                 }
             } 
             catch (Exception ex)
@@ -210,5 +213,51 @@
             registerPasswordEntry.IsPassword = !registerPasswordEntry.IsPassword;
         }
 
+        private void OnTogglePasswordConfirm(object sender, EventArgs e)
+        {
+            confirmRegisterPassword.IsPassword = !confirmRegisterPassword.IsPassword;
+        }
+
+
+        private async Task<bool> LoginAsync(string email, string password)
+        {
+            try
+            {
+                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.StudentLogin.Login;
+                var loginData = new
+                {
+                    email = email,
+                    password = password
+                };
+
+                var apiResponse = await _apiService.PostAsync<Token>(URL, loginData, false);
+                Debug.WriteLine(apiResponse);
+
+                if (apiResponse.Status == 200 && apiResponse.Data != null)
+                {
+                    // Guardar el token o realizar otras acciones necesarias
+                    var token = apiResponse.Data; // Este sería el token recibido
+                    await DisplayAlert("Éxito", "Inicio de sesión exitoso", "OK");
+                    if (Application.Current is App app)
+                    {
+                        app.SetMainPageToAppShell();
+                    }
+
+                    await Shell.Current.GoToAsync("//home");
+                    return true;
+                }
+                else
+                {
+                    await DisplayAlert("Error", apiResponse.Msg ?? "Error desconocido", "OK");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unexpected error: {ex.Message}");
+                await DisplayAlert("Error", "Error al inciar sesión", "OK");
+                return false;
+            }
+        }
     }
 }

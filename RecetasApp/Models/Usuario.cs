@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace RecetasApp.Models;
 
@@ -23,4 +24,10 @@ public class Usuario
     public string? Descripcion { get; set; }
 
     public string? Imagen { get; set; } 
+}
+
+public class RegisterData
+{
+    [JsonPropertyName("user")]
+    public Usuario? User { get; set; }
 }

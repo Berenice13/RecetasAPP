@@ -3,32 +3,56 @@
              x:Class="RecetasApp.Views.HomePage"
              BackgroundColor="White">
 
-    <StackLayout Padding="20">
-        <!-- Título de la Página -->
-        <Label Text="Bienvenido a RecetasApp"
-               FontSize="30"
-               FontAttributes="Bold"
-               HorizontalOptions="Center" />
+    <ContentPage.Content>
+       <ScrollView>
+              <VerticalStackLayout Padding="10" Spacing="15">
+                     <Label Text="RecetApp"
+                            Padding="10,10,1,1"
+                            FontSize="24"
+                            TextColor="Black"
+                            FontAttributes="Bold" />
+                     <BoxView HeightRequest="1" BackgroundColor="#FFDAD9D9" HorizontalOptions="Fill" />
+                     <Frame CornerRadius="10" BorderColor="#FFDAD9D9" Padding="0" Background="Transparent">
+                            <SearchBar Placeholder="Buscar recetas" TextColor="Black"  />
+                     </Frame>
 
-        <!-- Imagen -->
-        <Image Source="home_image.png"
-               HorizontalOptions="Center"
-               Margin="0,20,0,20"
-               HeightRequest="200"/>
+                     <Label Text="Categorías"
+                            Padding="10,0"
+                            FontSize="18"
+                            TextColor="Black"
+                            FontAttributes="Bold" />
 
-        <!-- Descripción breve -->
-        <Label Text="Explora las mejores recetas y comienza a cocinar."
-               FontSize="18"
-               HorizontalOptions="Center"
-               Margin="0,0,0,30"/>
+                     <!-- Barra de categorías -->
+                     <ScrollView Orientation="Horizontal" HeightRequest="120" Margin="0,10">
+                            <HorizontalStackLayout Spacing="20" x:Name="CategoriaStackLayout">
+                            <!-- Los botones se agregarán aquí dinámicamente -->
+                            </HorizontalStackLayout>
+                     </ScrollView>
 
-        <!-- Botón para navegar a otra página -->
-        <Button Text="Ver Recetas"
-                FontSize="18"
-                BackgroundColor="#4CAF50"
-                TextColor="White"
-                HorizontalOptions="Center"
-                Padding="10,15" />
-    </StackLayout>
+                     <!-- Sección de recetas -->
+                     <Label Text="Recetas Destacadas"
+                            Padding="10,0"
+                            FontSize="18"
+                            TextColor="Black"
+                            FontAttributes="Bold" />
 
+                     <!-- Agregar un ScrollView para todo el contenido de las recetas -->
+                     <ScrollView Orientation="Vertical" HeightRequest="400">
+                            <StackLayout>
+                            <!-- Aquí van las recetas, el Grid se agrega dinámicamente -->
+                            <Grid x:Name="RecetasGrid" Padding="10">
+                                   <Grid.ColumnDefinitions>
+                                          <ColumnDefinition Width="*" />
+                                          <ColumnDefinition Width="*" />
+                                   </Grid.ColumnDefinitions>
+                                   <Grid.RowDefinitions>
+                                          <!-- El número de filas se va agregando dinámicamente -->
+                                          <RowDefinition Height="Auto" />
+                                   </Grid.RowDefinitions>
+                            </Grid>
+                            </StackLayout>
+                     </ScrollView>
+              </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>

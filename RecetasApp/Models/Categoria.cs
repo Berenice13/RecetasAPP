@@ -11,4 +11,6 @@ public class Categoria
     [MaxLength(80)]
     public string? Nombre { get; set; }
 
+    public string? ImagenUrl { get; set; }
+
 }

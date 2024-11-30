@@ -122,22 +122,28 @@
                                     <ImageButton BackgroundColor="Transparent"
                                                     HorizontalOptions="End"
                                                     VerticalOptions="Center"
+                                                    Source="pwd.png"
+                                                    WidthRequest="30"
+                                                    HeightRequest="30"
                                                     Clicked="OnTogglePasswordVisibilityClicked">
-                                        <ImageButton.Source>
-                                            <FontImageSource Glyph="&#xf06e;"
-                                                                FontFamily="FontAwesome"
-                                                                Size="20"
-                                                                Color="Black" />
-                                        </ImageButton.Source>
                                     </ImageButton>
                                 </Grid>
-                                </Frame>
+                            </Frame>
                             <Frame CornerRadius="20" Padding="10,5,10,5" BackgroundColor="White" HasShadow="False" BorderColor="Transparent">
-                                <Entry x:Name="confirmRegisterPassword" Placeholder="Confirmar contraseña"
+                                <Grid>
+                                    <Entry x:Name="confirmRegisterPassword" Placeholder="Confirmar contraseña"
                                     IsPassword="True"
                                     BackgroundColor="White"
                                     TextColor="Black"
                                     HeightRequest="50" />
+                                    <ImageButton BackgroundColor="Transparent"
+                                                    HorizontalOptions="End"
+                                                    VerticalOptions="Center"
+                                                    Source="pwd.png"
+                                                    WidthRequest="30"
+                                                    HeightRequest="30">
+                                    </ImageButton>
+                                </Grid>
                             </Frame>
                             <Button Text="REGISTRARSE"
                                     FontSize="20"

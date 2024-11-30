@@ -62,7 +62,7 @@
                 var password = passwordEntry.Text; 
 
                 // Validar que los campos no estén vacíos
-                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                /*if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 {
                     await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
                     return;
@@ -105,7 +105,16 @@
                 {
                     // Si el login falla, mostramos el mensaje de error devuelto por la API
                     await DisplayAlert("Error", apiResponse.Msg ?? "Error al iniciar sesión.", "OK");
-                }
+                }*/
+
+                // Cambio de la página principal a AppShell
+                    if (Application.Current is App app)
+                    {
+                        app.SetMainPageToAppShell();
+                    }
+
+                    // Navegar a la página de inicio dentro de AppShell
+                    await Shell.Current.GoToAsync("//home");
             }
             catch (Exception ex)
             {

@@ -12,10 +12,7 @@
                             TextColor="Black"
                             FontAttributes="Bold" />
                      <BoxView HeightRequest="1" BackgroundColor="#FFDAD9D9" HorizontalOptions="Fill" />
-                     <Frame CornerRadius="10" BorderColor="#FFDAD9D9" Padding="0" Background="Transparent">
-                            <SearchBar Placeholder="Buscar recetas" TextColor="Black"  />
-                     </Frame>
-
+                    
                      <Label Text="Categorías"
                             Padding="10,0"
                             FontSize="18"
@@ -37,7 +34,7 @@
                             FontAttributes="Bold" />
 
                      <!-- Agregar un ScrollView para todo el contenido de las recetas -->
-                     <ScrollView Orientation="Vertical" HeightRequest="400">
+                     <ScrollView Orientation="Vertical" HeightRequest="500">
                             <StackLayout>
                             <!-- Aquí van las recetas, el Grid se agrega dinámicamente -->
                             <Grid x:Name="RecetasGrid" Padding="10">

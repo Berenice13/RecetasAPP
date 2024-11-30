@@ -1,16 +1,25 @@
-﻿using RecetasApp.Views;
+﻿using Microsoft.Maui.Storage; // Importar Preferences
+using RecetasApp.Views;
 
 namespace RecetasApp;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
-		MainPage = new LoginPage();
-	}
+    public App()
+    {
+        InitializeComponent();
+        var token = Preferences.Get("AuthToken", string.Empty);
 
-	// Método para cambiar la página principal a AppShell
+        if (!string.IsNullOrEmpty(token))
+        {
+            MainPage = new AppShell();
+        }
+        else
+        {
+            MainPage = new LoginPage();
+        }
+    }
+
     public void SetMainPageToAppShell()
     {
         MainPage = new AppShell();

@@ -82,18 +82,21 @@
                     return;
                 }
 
-                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.StudentLogin.Login;
+                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.Routes.Login;
                 var loginData = new
                 {
                     email = email,
                     password = password
                 };
 
-                var apiResponse = await _apiService.PostAsync<Token>(URL, loginData, false);
-                Debug.WriteLine(apiResponse);
-
+                var apiResponse = await _apiService.PostAsync<TokenResponse>(URL, loginData, false);
+                
                 if (apiResponse.Status == 200 && apiResponse.Data != null)
                 {
+                    var tokenDetails = apiResponse.Data.Token; 
+                    var token = tokenDetails?.Token;
+                    Preferences.Set("AuthToken", token);
+
                     if (Application.Current is App app)
                     {
                         app.SetMainPageToAppShell();
@@ -148,7 +151,7 @@
                     return;
                 }
 
-                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.StudentLogin.Register;
+                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.Routes.Register;
                 var registerData = new
                 {
                     nombre = nombre,
@@ -160,7 +163,7 @@
                 var apiResponse = await _apiService.PostAsync<RegisterData>(URL, registerData, false);
 
                 Debug.WriteLine(apiResponse);
-                if (apiResponse.Status == 201 && apiResponse.Data != null)
+                if ((apiResponse.Status == 201 || apiResponse.Status == 200) && apiResponse.Data != null)
                 {
                     var usuarioRegistrado = apiResponse.Data.User;
                     await LoginAsync(email, password);
@@ -223,21 +226,21 @@
         {
             try
             {
-                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.StudentLogin.Login;
+                var URL = ApiRoutes.ApiRoutes.BaseUrl +  ApiRoutes.ApiRoutes.Routes.Login;
                 var loginData = new
                 {
                     email = email,
                     password = password
                 };
 
-                var apiResponse = await _apiService.PostAsync<Token>(URL, loginData, false);
+                var apiResponse = await _apiService.PostAsync<TokenResponse>(URL, loginData, false);
                 Debug.WriteLine(apiResponse);
 
                 if (apiResponse.Status == 200 && apiResponse.Data != null)
                 {
                     // Guardar el token o realizar otras acciones necesarias
                     var token = apiResponse.Data; // Este sería el token recibido
-                    await DisplayAlert("Éxito", "Inicio de sesión exitoso", "OK");
+                    await DisplayAlert("Éxito", "Usuario creado con éxito", "OK");
                     if (Application.Current is App app)
                     {
                         app.SetMainPageToAppShell();

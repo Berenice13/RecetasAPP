@@ -12,10 +12,38 @@
                        TextColor="Black"
                        FontAttributes="Bold" />
                 <BoxView HeightRequest="1" BackgroundColor="#EAEAEA" HorizontalOptions="Fill" />
-                
-                <Frame CornerRadius="10" BorderColor="#EAEAEA" Padding="0" Background="Transparent">
-                    <SearchBar Placeholder="Buscar recetas" TextColor="Black"/>
-                </Frame>
+
+                <!-- Contenedor Horizontal para los Botones -->
+                <ScrollView Orientation="Horizontal" HeightRequest="55" Margin="0,10" HorizontalOptions="Fill">
+                    <HorizontalStackLayout Spacing="10">
+                        <!-- Botón para Categoría -->
+                        <Button Text="{Binding SelectedCategoria, FallbackValue='Categoría'}"
+                                BackgroundColor="Transparent"
+                                BorderColor="#84cbea"
+                                BorderWidth="1"
+                                CornerRadius="8"
+                                Padding="10,5"
+                                HorizontalOptions="Fill" />
+
+                        <!-- Botón para Tiempo de Preparación -->
+                        <Button Text="{Binding SelectedTiempoPreparacion, FallbackValue='Tiempo de Preparación'}"
+                                BackgroundColor="Transparent"
+                                BorderColor="#84cbea"
+                                BorderWidth="1"
+                                CornerRadius="8"
+                                Padding="10,5"
+                                HorizontalOptions="Fill"/>
+
+                        <!-- Botón para Dificultad -->
+                        <Button Text="{Binding SelectedDificultad, FallbackValue='Dificultad'}"
+                                BackgroundColor="Transparent"
+                                BorderColor="#84cbea"
+                                BorderWidth="1"
+                                CornerRadius="8"
+                                Padding="10,5"
+                                HorizontalOptions="Fill" />
+                    </HorizontalStackLayout>
+                </ScrollView>
 
                 <!-- CollectionView para mostrar las recetas dinámicamente -->
                 <CollectionView ItemsSource="{Binding Recetas}" 

@@ -24,6 +24,8 @@ namespace RecetasApp.Views
             BindingContext = this;
         }
 
+        
+
         // Método para cargar las recetas
         private void LoadRecetas()
         {
@@ -34,7 +36,7 @@ namespace RecetasApp.Views
                     Titulo = "Tarta de Manzana",
                     Descripcion = "Una deliciosa receta de postre.",
                     Imagen = "reposteria.png", 
-                    TiempoPreparacion = 30,
+                    TiempoPreparacion = "30",
                     Dificultad = "Fácil"
                 },
                 new Receta
@@ -42,7 +44,7 @@ namespace RecetasApp.Views
                     Titulo = "Sopa de Pollo",
                     Descripcion = "Receta clásica para el frío.",
                     Imagen = "reposteria.png",
-                    TiempoPreparacion = 45,
+                    TiempoPreparacion = "45",
                     Dificultad = "Media"
                 },
                 new Receta
@@ -50,7 +52,7 @@ namespace RecetasApp.Views
                     Titulo = "Ensalada César",
                     Descripcion = "Una ensalada fresca y ligera.",
                     Imagen = "reposteria.png",
-                    TiempoPreparacion = 15,
+                    TiempoPreparacion = "15",
                     Dificultad = "Fácil"
                 }
             };

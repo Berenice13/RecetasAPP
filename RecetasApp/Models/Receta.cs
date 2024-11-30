@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace RecetasApp.Models;
 
@@ -26,10 +27,19 @@ public class Receta
 
     public string? Dificultad { get; set; } // "Fácil", "Medio", "Difícil"
 
-    public int TiempoPreparacion { get; set; } 
+    public string? TiempoPreparacion { get; set; } 
 
     [DataType(DataType.Date)]
     public DateTime FechaPublicacion { get; set; } = DateTime.Now; 
 
     public string? Imagen { get; set; } 
+    public string? CreatedAt { get; set; }
+    public string? UpdatedAt { get; set; }
+}
+
+
+public class RecetaResponse
+{
+    [JsonPropertyName("recetas")]
+    public List<Receta>? Recetas { get; set; }
 }

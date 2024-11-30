@@ -15,6 +15,4 @@ namespace RecetasApp.Models
 
         public bool Response { get; set; }
     }
-
-
 }

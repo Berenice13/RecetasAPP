@@ -32,7 +32,8 @@ namespace RecetasApp.Services
                 // Configurar el token si es necesario
                 if (useToken)
                 {
-                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "tu_token_aqui");
+                    var tokenUser = Preferences.Get("AuthToken", string.Empty);
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenUser);
                 }
 
                 // Realizar la solicitud POST
@@ -49,7 +50,7 @@ namespace RecetasApp.Services
                 });
 
                 // Validar el estado HTTP y el status del API
-                if (response.IsSuccessStatusCode && apiResponse?.Status == 200)
+                if (response.IsSuccessStatusCode && (apiResponse?.Status == 200 || apiResponse?.Status == 201))
                 {
                     return apiResponse;
                 }
@@ -75,6 +76,53 @@ namespace RecetasApp.Services
                 };
             }
         }
+
+        public async Task<ApiResponse<T>> GetAsync<T>(string endpoint, bool useToken)
+        {
+            try
+            {
+                if (useToken)
+                {
+                    var tokenUser = Preferences.Get("AuthToken", string.Empty);
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenUser);
+                }
+
+                var response = await _httpClient.GetAsync(endpoint);
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine($"Respuesta GET: {responseContent}");
+
+                var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (response.IsSuccessStatusCode && (apiResponse?.Status == 200 || apiResponse?.Status == 201))
+                {
+                    return apiResponse;
+                }
+                else
+                {
+                    return new ApiResponse<T>
+                    {
+                        Status = apiResponse?.Status ?? (int)response.StatusCode,
+                        Msg = apiResponse?.Msg ?? "Error desconocido",
+                        Data = default
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error inesperado: {ex.Message}");
+                return new ApiResponse<T>
+                {
+                    Status = 500,
+                    Msg = $"Error inesperado: {ex.Message}",
+                    Data = default
+                };
+            }
+        }
+
 
     }
 }

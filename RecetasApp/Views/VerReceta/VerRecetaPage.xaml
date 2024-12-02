@@ -1,0 +1,77 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="RecetasApp.Views.VerRecetaPage"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="True" 
+             Shell.BackgroundColor="#84cbea"
+             Shell.TitleColor="White"
+             Shell.ForegroundColor="White">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="10">
+
+            <!-- Imagen de la receta -->
+            <Image x:Name="RecetaImage" Aspect="AspectFill" HeightRequest="200"/>
+
+            <!-- Nombre de la receta y el chef -->
+            <Label x:Name="RecetaTitle" TextColor="Black" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center"/>
+            <Label x:Name="RecetaUsuario" TextColor="Gray" FontSize="18" HorizontalOptions="Center"/>
+
+            <!-- Tiempo y porciones -->
+            <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+                <HorizontalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Image Source="tiempo.png" HeightRequest="20" WidthRequest="20" VerticalOptions="Center"/>
+                    <Label x:Name="RecetaTiempo" FontSize="14" TextColor="Black" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+                <Label x:Name="RecetaDificultad" Margin="20,0,0,0" FontSize="14" TextColor="Black"/>
+            </StackLayout>
+
+            <!-- Calificación de la receta -->
+            <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="Center">
+                <Label Text="4.8" TextColor="Black" FontSize="18" FontAttributes="Bold"/>
+                <Label Text="(120 calificaciones)" TextColor="Black" FontSize="14" VerticalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="Center">
+                    <ImageButton x:Name="Star1" Source="sola.png" Clicked="OnStarClicked" CommandParameter="1" WidthRequest="30" HeightRequest="30"/>
+                    <ImageButton x:Name="Star2" Source="sola.png" Clicked="OnStarClicked" CommandParameter="2" WidthRequest="30" HeightRequest="30"/>
+                    <ImageButton x:Name="Star3" Source="sola.png" Clicked="OnStarClicked" CommandParameter="3" WidthRequest="30" HeightRequest="30"/>
+                    <ImageButton x:Name="Star4" Source="sola.png" Clicked="OnStarClicked" CommandParameter="4" WidthRequest="30" HeightRequest="30"/>
+                    <ImageButton x:Name="Star5" Source="sola.png" Clicked="OnStarClicked" CommandParameter="5" WidthRequest="30" HeightRequest="30"/>
+                </StackLayout>
+
+            </StackLayout>
+
+            <!-- Descripción -->
+            <Label Text="Descripción" TextColor="Black" FontSize="18" FontAttributes="Bold" />
+            <StackLayout Spacing="5">
+                <Label x:Name="RecetaDescripcion" TextColor="Black"/>
+            </StackLayout>
+           
+           <BoxView HeightRequest="1" 
+                    BackgroundColor="#FFDAD9D9" 
+                    HorizontalOptions="Fill" />
+                    
+            <!-- Comentarios -->
+            <Label Text="Comentarios" 
+                    TextColor="Black" 
+                    FontSize="18" 
+                    FontAttributes="Bold" />
+            <StackLayout Spacing="5">
+                <Label Text="Usuario1: ¡Deliciosa receta! La hice anoche y a toda mi familia le encantó." 
+                    TextColor="Black" 
+                    FontSize="14"/>
+                <Label Text="Usuario2: Excelente receta, pero yo le agregué un poco de perejil al final. Quedó espectacular." 
+                    TextColor="Black" 
+                    FontSize="14"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="5" HorizontalOptions="Center">
+                <Frame CornerRadius="20" WidthRequest="250" BackgroundColor="Transparent" BorderColor="Black" Padding="2">
+                    <!-- Espacio para agregar un comentario -->
+                    <Entry Placeholder="Añade un comentario..." TextColor="Black"/>
+                </Frame>
+                <Button Text="Comentar" HorizontalOptions="Center" />
+            </StackLayout> 
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

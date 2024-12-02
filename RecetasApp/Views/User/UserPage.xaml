@@ -3,119 +3,187 @@
              x:Class="RecetasApp.Views.UserPage"
              BackgroundColor="White">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="10">
-            <!-- Encabezado del perfil -->
-              <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
-                     <!-- Etiqueta de "Mi Perfil" -->
-                     <Label Text="Mi Perfil"
-                            Margin="8"
-                            Padding="10,10,1,1"
-                            FontSize="24"
-                            TextColor="Black"
-                            FontAttributes="Bold"
-                            Grid.Column="0" />
+    <Grid>
+        <Grid>
+            <ScrollView>
+                <VerticalStackLayout Padding="10">
+                    <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center">
+                        <Label Text="Mi Perfil"
+                               Margin="8"
+                               Padding="10,10,1,1"
+                               FontSize="24"
+                               TextColor="Black"
+                               FontAttributes="Bold"
+                               Grid.Column="0" />
+                        <Image Source="menulines.png"
+                               WidthRequest="18"
+                               HeightRequest="18"
+                               Margin="0, 0, 10, 0"
+                               HorizontalOptions="End"
+                               VerticalOptions="Center"
+                               Grid.Column="1">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnMenuTapped" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
 
-                     <!-- Imagen de configuración, alineada a la derecha -->
-                     <Image Source="menulines.png"
-                            WidthRequest="18"
-                            HeightRequest="18"
-                            Margin="0, 0, 10, 0"
-                            HorizontalOptions="End"
-                            VerticalOptions="Center"
-                            Grid.Column="1" />
-              </Grid>
+                    
+                     <BoxView HeightRequest="1" BackgroundColor="#FFDAD9D9" HorizontalOptions="Fill" />
 
-              <BoxView HeightRequest="1" BackgroundColor="#FFDAD9D9" HorizontalOptions="Fill" />
+                     <VerticalStackLayout Padding="20, 20, 20, 8" Spacing="0">
+                            <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                                   <!-- Imagen de perfil -->
+                                   <Frame BorderColor="LightGray" BackgroundColor="White" CornerRadius="50" HeightRequest="70" WidthRequest="70" Padding="10">
+                                          <Image Source="user.png" Aspect="AspectFill" />
+                                   </Frame>
 
-              <VerticalStackLayout Padding="20" Spacing="0">
-                     <!-- Contenedor de perfil -->
-                     <HorizontalStackLayout Spacing="15" VerticalOptions="Center">
+                                   <!-- Información de usuario -->
+                                   <VerticalStackLayout>
+                                          <Label x:Name="UserNombre" FontSize="25" FontAttributes="Bold" TextColor="Black" />
+                                          <Label x:Name="UserCorreo" FontSize="15" TextColor="Gray" />
+                                   </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                     </VerticalStackLayout>
+
+                     <VerticalStackLayout Spacing="10" Margin="0,0,0,15">
+                            <!-- Contenedor para el perfil y datos -->
+                            <HorizontalStackLayout Spacing="70" HorizontalOptions="Center" VerticalOptions="Center">
+                                   <!-- Recetas -->
+                                   <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                          <Label x:Name="CantRecetas" FontSize="22" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                                          <Label Text="Recetas" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+                                   </VerticalStackLayout>
+
+                                   <!-- Favoritas -->
+                                   <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
+                                          <Label x:Name="CantFav" FontSize="22" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
+                                          <Label Text="Favoritas" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
+                                   </VerticalStackLayout>
+                            </HorizontalStackLayout>
+                     </VerticalStackLayout>
+
+                     <VerticalStackLayout>
+                            <HorizontalStackLayout Spacing="5">
+                                   <Button Text="Mis Recetas"
+                                          FontSize="16"
+                                          CornerRadius="18"
+                                          WidthRequest="180"
+                                          BorderWidth="0"
+                                          BackgroundColor="Transparent"
+                                          TextColor="Black"
+                                          Clicked="OnMisRecetasBtnClicked">
+                                          <Button.Triggers>
+                                          <DataTrigger TargetType="Button" Binding="{Binding IsMisRecetasVisible}" Value="True">
+                                                 <Setter Property="BackgroundColor" Value="#84cbea" />
+                                                 <Setter Property="TextColor" Value="White" />
+                                          </DataTrigger>
+                                          <DataTrigger TargetType="Button" Binding="{Binding IsMisRecetasVisible}" Value="False">
+                                                 <Setter Property="BackgroundColor" Value="#f1f1f1" />
+                                                 <Setter Property="TextColor" Value="Black" />
+                                          </DataTrigger>
+                                          </Button.Triggers>
+                                   </Button>
+
+                                   <Button Text="Favoritas"
+                                          FontSize="16"
+                                          CornerRadius="18"
+                                          WidthRequest="180"
+                                          BorderWidth="0"
+                                          BackgroundColor="Transparent"
+                                          TextColor="Black"
+                                          Clicked="OnFavoritasBtnClicked">
+                                          <Button.Triggers>
+                                          <DataTrigger TargetType="Button" Binding="{Binding IsFavoritasVisible}" Value="True">
+                                                 <Setter Property="BackgroundColor" Value="#84cbea" />
+                                                 <Setter Property="TextColor" Value="#f1f1f1" />
+                                          </DataTrigger>
+                                          <DataTrigger TargetType="Button" Binding="{Binding IsFavoritasVisible}" Value="False">
+                                                 <Setter Property="BackgroundColor" Value="#f1f1f1" />
+                                                 <Setter Property="TextColor" Value="Black" />
+                                          </DataTrigger>
+                                          </Button.Triggers>
+                                   </Button>
+                            </HorizontalStackLayout>
+                     </VerticalStackLayout>
+
+                <StackLayout >
+                     <Grid x:Name="RecetasGrid" Margin="5, 15, 5, 0" IsVisible="{Binding IsMisRecetasVisible}">
+                            <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                     </Grid>
+                </StackLayout>
+
+                <StackLayout>
+                     <Grid x:Name="RecetasGuardadasGrid" Margin="5, 15, 5, 0" IsVisible="{Binding IsFavoritasVisible}">
+                            <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                     </Grid>
+                </StackLayout>
+              </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
+
+        <BoxView x:Name="Overlay"
+              BackgroundColor="Black"
+              Opacity="0.4"
+              IsVisible="False"
+              HorizontalOptions="Fill"
+              VerticalOptions="Fill">
+       <BoxView.GestureRecognizers>
+              <TapGestureRecognizer Tapped="OnCloseSidebarTapped" />
+       </BoxView.GestureRecognizers>
+       </BoxView>
+
+        <!-- Sidebar -->
+       <Grid x:Name="Sidebar"
+              BackgroundColor="#FFF1FBFF"
+              WidthRequest="250"
+              TranslationX="300"
+              VerticalOptions="Fill"
+              HorizontalOptions="End"
+              >
+       <VerticalStackLayout Spacing="20">
+              <HorizontalStackLayout Spacing="15" VerticalOptions="Start" BackgroundColor="#84cbea" Padding="20">
                      <!-- Imagen de perfil -->
-                     <Frame BorderColor="LightGray" BackgroundColor="White" CornerRadius="50" HeightRequest="70" WidthRequest="70" Padding="10">
+                     <Frame BorderColor="LightGray" BackgroundColor="White" CornerRadius="50" HeightRequest="60" WidthRequest="60" Padding="5">
                             <Image Source="user.png" Aspect="AspectFill" />
                      </Frame>
-
-                     <!-- Información de usuario -->
-                     <VerticalStackLayout>
-                            <Label Text="Usuario Ejemplo" FontSize="25" FontAttributes="Bold" TextColor="Black" />
-                            <Label Text="@username" FontSize="15" TextColor="Gray" />
+                     <!-- Información del usuario -->
+                     <VerticalStackLayout Margin="0, 15, 2, 0">
+                            <Label x:Name="NombreSide" FontSize="18" FontAttributes="Bold" TextColor="White" />
                      </VerticalStackLayout>
-                     </HorizontalStackLayout>
+                     
+                     <BoxView HeightRequest="10" VerticalOptions="Fill" />
+
+              </HorizontalStackLayout>
+
+              <!-- Opciones del menú -->
+              <VerticalStackLayout Spacing="10">
+              <Label Text="Editar Perfil"
+                     FontSize="18"
+                     TextColor="Black"
+                     Padding="18, 5, 0, 520"
+                     HorizontalOptions="Start">
+                     <Label.GestureRecognizers>
+                     <TapGestureRecognizer Tapped="OnEditarPerfilTapped" />
+                     </Label.GestureRecognizers>
+              </Label>
               </VerticalStackLayout>
 
-              <VerticalStackLayout Padding="5" Spacing="10">
-                     <!-- Contenedor para el perfil y datos -->
-                     <HorizontalStackLayout Spacing="40" HorizontalOptions="Center" VerticalOptions="Center">
-                     <!-- Recetas -->
-                     <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Label Text="15" FontSize="22" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
-                            <Label Text="Recetas" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
-                     </VerticalStackLayout>
+              <BoxView HeightRequest="2" VerticalOptions="Fill" />
+              <Button Text="Cerrar Sesión"
+                     BackgroundColor="#84cbea"
+                     TextColor="White"
+                     Margin="20, 0, 20, 5"
+                     FontAttributes="Bold"
+                     HorizontalOptions="Fill" 
+                     Clicked="OnCerrarSesionClicked" />
+       </VerticalStackLayout>
+       </Grid>
 
-                     <!-- Seguidores -->
-                     <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Label Text="1.2k" FontSize="22" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
-                            <Label Text="Seguidores" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
-                     </VerticalStackLayout>
-
-                     <!-- Siguiendo -->
-                     <VerticalStackLayout HorizontalOptions="Center" Spacing="5">
-                            <Label Text="300" FontSize="22" FontAttributes="Bold" TextColor="Black" HorizontalOptions="Center"/>
-                            <Label Text="Siguiendo" FontSize="14" TextColor="Gray" HorizontalOptions="Center"/>
-                     </VerticalStackLayout>
-                     </HorizontalStackLayout>
-              </VerticalStackLayout>
-
-            <!-- Botones para cambiar entre Mis Recetas y Guardadas -->
-            <Grid ColumnDefinitions="*,*" Margin="5, 10, 5, 10">
-                <Button Text="Mis Recetas" BackgroundColor="#84cbea" TextColor="White" Grid.Column="0" />
-                <Button Text="Guardadas" BackgroundColor="#f1f1f1" TextColor="Black" Grid.Column="1" />
-            </Grid>
-
-            <!-- Crear nueva receta -->
-            <Button Text="Crear Nueva Receta" Margin="5, 2, 5, 10" BackgroundColor="White" BorderColor="#84cbea" BorderWidth="1" TextColor="Black" />
-
-            <!-- CollectionView para mostrar las recetas dinámicamente -->
-            <CollectionView ItemsSource="{Binding Recetas}" 
-                            VerticalOptions="Fill">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="#FFDAD9D9" CornerRadius="10" Margin="10,7, 10, 7" Padding="10" BackgroundColor="White">
-                            <HorizontalStackLayout Spacing="10">
-                                <!-- Imagen -->
-                                <Image Source="{Binding Imagen}"
-                                       HeightRequest="100"
-                                       WidthRequest="100"
-                                       Aspect="AspectFill"
-                                       HorizontalOptions="Start" />
-
-                                <!-- Contenido del texto -->
-                                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
-                                    <Label Text="{Binding Titulo}"
-                                           FontSize="18"
-                                           FontAttributes="Bold"
-                                           TextColor="Black" />
-                                    <HorizontalStackLayout Spacing="5">
-                                          <Label Text="{Binding TiempoPreparacion}"
-                                                 FontSize="14"
-                                                 TextColor="Gray" />
-                                          <Label Text="*"
-                                                 FontSize="14"
-                                                 TextColor="Gray" />
-                                          <Label Text="{Binding Dificultad}"
-                                                 FontSize="14"
-                                                 TextColor="Gray" />
-                                   </HorizontalStackLayout>
-                                          
-                                </VerticalStackLayout>
-                            </HorizontalStackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-        </VerticalStackLayout>
-    </ScrollView>
-
+    
+    </Grid>
 </ContentPage>

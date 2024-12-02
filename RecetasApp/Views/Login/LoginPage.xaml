@@ -65,8 +65,6 @@
                         </Button>
                     </HorizontalStackLayout>
 
-                    
-
                     <!-- Campos del formulario -->
                     <Frame BackgroundColor="#e4e4e4" CornerRadius="20" Padding="0"  BorderColor="Transparent" HasShadow="True" IsVisible="{Binding IsLoginVisible}">
                         <VerticalStackLayout Spacing="20">

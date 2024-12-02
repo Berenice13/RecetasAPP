@@ -36,11 +36,12 @@
         {
             InitializeComponent();
             _apiService = new ApiService();
-             BindingContext = this;
+            BindingContext = this;
 
             // Mostrar el formulario de inicio de sesión por defecto
             IsLoginVisible = true;
             IsRegisterVisible = false;
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         private void OnLoginButtonClicked(object sender, EventArgs e)
@@ -62,7 +63,7 @@
                 var password = passwordEntry.Text; 
 
                 // Validar que los campos no estén vacíos
-                /*if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+                if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
                 {
                     await DisplayAlert("Error", "Por favor, complete todos los campos.", "OK");
                     return;
@@ -107,16 +108,10 @@
                 else
                 {
                     await DisplayAlert("Error", apiResponse.Msg ?? "Error al iniciar sesión.", "OK");
-                }*/
+                }
 
-                // Cambio de la página principal a AppShell
-                    if (Application.Current is App app)
-                    {
-                        app.SetMainPageToAppShell();
-                    }
-
-                    // Navegar a la página de inicio dentro de AppShell
-                    await Shell.Current.GoToAsync("//home");
+                // Navegar a la página de inicio dentro de AppShell
+                await Shell.Current.GoToAsync("//home");
             }
             catch (Exception ex)
             {
@@ -169,7 +164,7 @@
                     password_confirmation = confirmPassword
                 };
 
-                var apiResponse = await _apiService.PostAsync<RegisterData>(URL, registerData, false);
+                var apiResponse = await _apiService.PostAsync<DataUser>(URL, registerData, false);
 
                 Debug.WriteLine(apiResponse);
                 if ((apiResponse.Status == 201 || apiResponse.Status == 200) && apiResponse.Data != null)

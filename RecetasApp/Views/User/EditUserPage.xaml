@@ -1,0 +1,124 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecetasApp.Views.EditUserPage"
+             BackgroundColor="White"
+             Shell.NavBarIsVisible="True" 
+             Shell.BackgroundColor="#84cbea"
+             Shell.TitleColor="White"
+             Shell.ForegroundColor="White"> 
+
+    <StackLayout Padding="30">
+        <ScrollView VerticalOptions="Fill" HorizontalOptions="Fill">
+            <VerticalStackLayout>
+                <Label Text="EDITAR PERFIL"
+                    FontSize="28"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Start" />
+                
+                <!-- Imagen de perfil -->
+                <Frame BorderColor="LightGray" BackgroundColor="White" CornerRadius="100" HeightRequest="180" WidthRequest="180" Margin="0,5,0,20">
+                    <Image Source="user.png" 
+                        HorizontalOptions="Center"
+                        HeightRequest="100" 
+                        WidthRequest="100"
+                        Aspect="AspectFill"/>
+                </Frame>
+
+                <!-- Campo para nombre -->
+                <Label Text="Nombre"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    Margin="10,0,0,0" />
+                <Frame BorderColor="LightGray"
+                    CornerRadius="20"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HasShadow="False"
+                    Margin="0,0,0,20">
+                    <Entry Placeholder="Nombre"
+                        Text="{Binding UserName}"
+                        TextColor="Black"
+                        Keyboard="Default"
+                        HorizontalOptions="Fill"
+                        Margin="5" />
+                </Frame>
+
+                <!-- Campo para correo electrónico -->
+                <Label Text="Correo electrónico"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    Margin="10,0,0,0" />
+                <Frame BorderColor="LightGray"
+                    CornerRadius="20"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HasShadow="False"
+                    Margin="0,0,0,15">
+                    <Entry Placeholder="Correo electrónico" 
+                        Text="{Binding UserEmail}"
+                        TextColor="Black"
+                        Keyboard="Email"
+                        HorizontalOptions="Fill" 
+                        Margin="5"/>
+                </Frame>
+
+                <!-- Campo para contraseña -->
+                <Label Text="Contraseña"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    Margin="10,0,0,0" />
+                <Frame BorderColor="LightGray"
+                    CornerRadius="20"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HasShadow="False"
+                    Margin="0,0,0,15">
+                    <Entry Placeholder="Contraseña" 
+                        IsPassword="True"
+                        Text="{Binding UserNewPassword}"
+                        TextColor="Black"
+                        HorizontalOptions="Fill"
+                        Margin="5" />
+                </Frame>
+
+                <!-- Campo para confirmar contraseña -->
+                <Label Text="Confirmar contraseña"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    Margin="10,0,0,0" />
+                <Frame BorderColor="LightGray"
+                    CornerRadius="20"
+                    BackgroundColor="White"
+                    Padding="0"
+                    HasShadow="False"
+                    Margin="0,0,0,15">
+                    <Entry Placeholder="Confirme contraseña" 
+                        IsPassword="True"
+                        Text="{Binding UserNewPasswordConfirm}"
+                        TextColor="Black"
+                        HorizontalOptions="Fill"
+                        Margin="5" />
+                </Frame>
+                
+
+                <!-- Botón para guardar cambios -->
+                <Button Text="Guardar cambios"
+                        Margin="20"
+                        WidthRequest="250"
+                        CornerRadius="30"
+                        HeightRequest="50"
+                        BackgroundColor="#84cbea"
+                        TextColor="White"
+                        FontSize="18"
+                        Clicked="OnSaveChangesClicked"
+                        HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

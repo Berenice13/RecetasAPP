@@ -8,31 +8,41 @@ namespace RecetasApp.Models;
 public class Receta
 {
     [Key]
+    [JsonPropertyName("id")]
     public int Id { get; set; }
 
-    [MaxLength(80)]
+    [JsonPropertyName("titulo")]
     public required string Titulo { get; set; }
 
+    [JsonPropertyName("descripcion")]
     public string? Descripcion { get; set; }
 
+    [JsonPropertyName("usuarioId")]
     public int UsuarioId { get; set; }
 
     [ForeignKey("UsuarioId")]
     public Usuario? Usuario { get; set; }
 
+    [JsonPropertyName("categoriaId")]
     public int CategoriaId { get; set; }
 
     [ForeignKey("CategoriaId")]
     public Categoria? Categoria { get; set; }
 
+    [JsonPropertyName("dificultad")]
     public string? Dificultad { get; set; } // "Fácil", "Medio", "Difícil"
 
+    [JsonPropertyName("tiempoPreparacion")]
     public string? TiempoPreparacion { get; set; } 
 
-    [DataType(DataType.Date)]
+    [JsonPropertyName("fechaPublicacion")]
     public DateTime FechaPublicacion { get; set; } = DateTime.Now; 
 
+    [JsonPropertyName("imagen")]
     public string? Imagen { get; set; } 
+
+    [JsonPropertyName("puntuacionMedia")]
+    public double? PuntuacionMedia { get; set; }
     public string? CreatedAt { get; set; }
     public string? UpdatedAt { get; set; }
 }

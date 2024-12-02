@@ -84,6 +84,7 @@ namespace RecetasApp.Services
                 if (useToken)
                 {
                     var tokenUser = Preferences.Get("AuthToken", string.Empty);
+                    Debug.WriteLine($"Token: {tokenUser}");
                     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenUser);
                 }
 

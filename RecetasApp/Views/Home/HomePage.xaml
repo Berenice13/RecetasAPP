@@ -36,17 +36,17 @@
                      <!-- Agregar un ScrollView para todo el contenido de las recetas -->
                      <ScrollView Orientation="Vertical" HeightRequest="500">
                             <StackLayout>
-                            <!-- Aquí van las recetas, el Grid se agrega dinámicamente -->
-                            <Grid x:Name="RecetasGrid" Padding="10">
-                                   <Grid.ColumnDefinitions>
-                                          <ColumnDefinition Width="*" />
-                                          <ColumnDefinition Width="*" />
-                                   </Grid.ColumnDefinitions>
-                                   <Grid.RowDefinitions>
-                                          <!-- El número de filas se va agregando dinámicamente -->
-                                          <RowDefinition Height="Auto" />
-                                   </Grid.RowDefinitions>
-                            </Grid>
+                                   <!-- Aquí van las recetas, el Grid se agrega dinámicamente -->
+                                   <Grid x:Name="RecetasGrid" Padding="10">
+                                          <Grid.ColumnDefinitions>
+                                                 <ColumnDefinition Width="*" />
+                                                 <ColumnDefinition Width="*" />
+                                          </Grid.ColumnDefinitions>
+                                          <Grid.RowDefinitions>
+                                                 <!-- El número de filas se va agregando dinámicamente -->
+                                                 <RowDefinition Height="Auto" />
+                                          </Grid.RowDefinitions>
+                                   </Grid>
                             </StackLayout>
                      </ScrollView>
               </VerticalStackLayout>

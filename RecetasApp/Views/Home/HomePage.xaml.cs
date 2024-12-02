@@ -119,10 +119,13 @@ namespace RecetasApp.Views
 
                     foreach (var receta in recetas!)
                     {
+                        Debug.WriteLine("Receta: " + receta.Titulo);
+                        Debug.WriteLine("Imagen: " + receta.Imagen);
+
                         var stackLayout = new StackLayout { Spacing = 6 };
                         var image = new Image
                         {
-                            Source = receta.Imagen,
+                            Source = string.IsNullOrEmpty(receta.Imagen) ? "todas.png" : receta.Imagen,
                             HeightRequest = 150,
                             Aspect = Aspect.AspectFill
                         };
@@ -141,6 +144,12 @@ namespace RecetasApp.Views
                             BackgroundColor = Color.FromArgb("#84cbea"),
                             TextColor = Colors.White,
                             CornerRadius = 10
+                        };
+
+                        button.Clicked += async (sender, e) =>
+                        {
+                            // Navegar a la página de la receta pasando los datos
+                            await Navigation.PushAsync(new VerRecetaPage(receta));
                         };
 
                         stackLayout.Children.Add(image);
@@ -177,5 +186,6 @@ namespace RecetasApp.Views
                 await DisplayAlert("Error", ex.Message, "OK");
             }
         }
+    
     }
 }

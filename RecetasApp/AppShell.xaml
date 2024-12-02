@@ -10,11 +10,8 @@
         <Tab Title="Inicio" Icon="home.png">
             <ShellContent Route="home" ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
-        <Tab Title="Explorar" Icon="search.png">
-            <ShellContent ContentTemplate="{DataTemplate views:SearchPage}" />
-        </Tab>
         <Tab Title="Top" Icon="top.png">
-            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:TopPage}" />
         </Tab>
         <Tab Title="Perfil" Icon="user.png">
             <ShellContent ContentTemplate="{DataTemplate views:UserPage}" />

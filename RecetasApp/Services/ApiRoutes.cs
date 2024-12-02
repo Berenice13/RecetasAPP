@@ -8,7 +8,10 @@ public static class ApiRoutes
     {
         public const string Login = "/login";
         public const string Register = "/register";
-
         public const string RecetasIndex = "/recetas";
+        public const string UserInfo = "/authUser";
+        public const string RecetasUser = "/recetas/user";
+        public const string RecetasTop = "/recetas/top";
+        public const string RecetasFavoritas = "/recetas/liked";
     }
 }

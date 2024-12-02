@@ -7,26 +7,29 @@ namespace RecetasApp.Models;
 public class Usuario
 {
     [Key]
+    [JsonPropertyName("id")]
     public int Id { get; set; }
 
-    [MaxLength(80)]
+    [JsonPropertyName("nombre")]
     public string? Nombre { get; set; }
 
-    [EmailAddress]
+    [JsonPropertyName("email")]
     public string? Email { get; set; }
 
-    [DataType(DataType.Password)]
+    [JsonPropertyName("password")]
     public string? Password { get; set; }
 
-    [DataType(DataType.Date)]
+    [JsonPropertyName("fecha_registro")]
     public DateTime FechaRegistro { get; set; } = DateTime.Now;
 
+    [JsonPropertyName("biografia")]
     public string? Descripcion { get; set; }
 
+    [JsonPropertyName("imagen")]
     public string? Imagen { get; set; } 
 }
 
-public class RegisterData
+public class DataUser
 {
     [JsonPropertyName("user")]
     public Usuario? User { get; set; }

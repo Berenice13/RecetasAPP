@@ -17,7 +17,7 @@
             <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
         </Tab>
         <Tab Title="Perfil" Icon="user.png">
-            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+            <ShellContent ContentTemplate="{DataTemplate views:UserPage}" />
         </Tab>
     </TabBar>
 </Shell>

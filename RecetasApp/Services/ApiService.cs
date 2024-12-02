@@ -124,6 +124,54 @@ namespace RecetasApp.Services
             }
         }
 
+        public async Task<ApiResponse<T>> PutAsync<T>(string endpoint, object data, bool useToken)
+        {
+            try
+            {
+                var json = JsonSerializer.Serialize(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                if (useToken)
+                {
+                    var tokenUser = Preferences.Get("AuthToken", string.Empty);
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenUser);
+                }
+
+                var response = await _httpClient.PutAsync(endpoint, content);
+                var responseContent = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"Respuesta PUT: {responseContent}");
+
+                var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+
+                if (response.IsSuccessStatusCode && (apiResponse?.Status == 200 || apiResponse?.Status == 204))
+                {
+                    return apiResponse;
+                }
+                else
+                {
+                    return new ApiResponse<T>
+                    {
+                        Status = apiResponse?.Status ?? (int)response.StatusCode,
+                        Msg = apiResponse?.Msg ?? "Error desconocido",
+                        Data = default
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error inesperado: {ex.Message}");
+                return new ApiResponse<T>
+                {
+                    Status = 500,
+                    Msg = $"Error inesperado: {ex.Message}",
+                    Data = default
+                };
+            }
+        }
+
 
     }
 }

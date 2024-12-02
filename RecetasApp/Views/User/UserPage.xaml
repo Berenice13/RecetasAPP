@@ -122,6 +122,16 @@
                             </Grid.ColumnDefinitions>
                      </Grid>
                 </StackLayout>
+
+                <Button Text="Crear Nueva Receta"
+                     BackgroundColor="Transparent"
+                     BorderColor="#84cbea"
+                     CornerRadius="18"
+                     TextColor="Black"
+                     BorderWidth="1"
+                     Clicked="OnCreateClicked"  >
+
+                </Button>
               </VerticalStackLayout>
             </ScrollView>
         </Grid>

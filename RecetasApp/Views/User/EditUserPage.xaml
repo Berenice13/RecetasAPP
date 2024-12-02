@@ -5,7 +5,7 @@
              Shell.NavBarIsVisible="True" 
              Shell.BackgroundColor="#84cbea"
              Shell.TitleColor="White"
-             Shell.ForegroundColor="White"> 
+             Shell.ForegroundColor="White">  
 
     <StackLayout Padding="30">
         <ScrollView VerticalOptions="Fill" HorizontalOptions="Fill">
@@ -39,7 +39,7 @@
                     HasShadow="False"
                     Margin="0,0,0,20">
                     <Entry Placeholder="Nombre"
-                        Text="{Binding UserName}"
+                        x:Name="UserName"
                         TextColor="Black"
                         Keyboard="Default"
                         HorizontalOptions="Fill"
@@ -59,53 +59,12 @@
                     HasShadow="False"
                     Margin="0,0,0,15">
                     <Entry Placeholder="Correo electrónico" 
-                        Text="{Binding UserEmail}"
+                        x:Name="UserEmail"
                         TextColor="Black"
                         Keyboard="Email"
                         HorizontalOptions="Fill" 
                         Margin="5"/>
                 </Frame>
-
-                <!-- Campo para contraseña -->
-                <Label Text="Contraseña"
-                    FontSize="18"
-                    FontAttributes="Bold"
-                    TextColor="Black"
-                    Margin="10,0,0,0" />
-                <Frame BorderColor="LightGray"
-                    CornerRadius="20"
-                    BackgroundColor="White"
-                    Padding="0"
-                    HasShadow="False"
-                    Margin="0,0,0,15">
-                    <Entry Placeholder="Contraseña" 
-                        IsPassword="True"
-                        Text="{Binding UserNewPassword}"
-                        TextColor="Black"
-                        HorizontalOptions="Fill"
-                        Margin="5" />
-                </Frame>
-
-                <!-- Campo para confirmar contraseña -->
-                <Label Text="Confirmar contraseña"
-                    FontSize="18"
-                    FontAttributes="Bold"
-                    TextColor="Black"
-                    Margin="10,0,0,0" />
-                <Frame BorderColor="LightGray"
-                    CornerRadius="20"
-                    BackgroundColor="White"
-                    Padding="0"
-                    HasShadow="False"
-                    Margin="0,0,0,15">
-                    <Entry Placeholder="Confirme contraseña" 
-                        IsPassword="True"
-                        Text="{Binding UserNewPasswordConfirm}"
-                        TextColor="Black"
-                        HorizontalOptions="Fill"
-                        Margin="5" />
-                </Frame>
-                
 
                 <!-- Botón para guardar cambios -->
                 <Button Text="Guardar cambios"
@@ -116,7 +75,7 @@
                         BackgroundColor="#84cbea"
                         TextColor="White"
                         FontSize="18"
-                        Clicked="OnSaveChangesClicked"
+                        Clicked="OnGuardarClicked"
                         HorizontalOptions="Center" />
             </VerticalStackLayout>
         </ScrollView>

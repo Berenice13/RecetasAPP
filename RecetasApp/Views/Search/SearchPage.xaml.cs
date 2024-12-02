@@ -15,6 +15,8 @@ namespace RecetasApp.Views
 
         public SearchPage()
         {
+            Recetas = new List<Receta>();
+            RecetasFiltradas = new List<Receta>();
             InitializeComponent();
 
             // Cargar las recetas dinámicamente

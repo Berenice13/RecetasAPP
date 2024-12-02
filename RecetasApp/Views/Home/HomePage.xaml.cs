@@ -17,8 +17,14 @@ namespace RecetasApp.Views
             _apiService = new ApiService();
             InitializeComponent();
             LoadCategorias();
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             LoadRecetas();
         }
+
 
         private async void LoadCategorias()
         {

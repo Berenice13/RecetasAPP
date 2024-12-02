@@ -12,8 +12,6 @@ namespace RecetasApp.Views
         public List<Receta> RecetasFiltradas { get; set; }
         private readonly ApiService _apiService;
 
-        private bool isSidebarVisible = false;
-        
         public ObservableCollection<Receta> Recetas
         {
             get => _recetas;

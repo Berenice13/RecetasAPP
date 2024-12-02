@@ -1,0 +1,126 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RecetasApp.Views.CreateRecetaPage"
+             BackgroundColor="White">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="10" Spacing="15">
+                <Label Text="Crear Nueva Receta"
+                       Padding="10,10,1,1"
+                       FontSize="24"
+                       TextColor="Black"
+                       FontAttributes="Bold" />
+                <BoxView HeightRequest="1" BackgroundColor="#EAEAEA" HorizontalOptions="Fill" />
+
+                 <!-- Contenedor interno con padding específico -->
+                <VerticalStackLayout Padding="20,0,20,0">
+                    <!-- Campo para titulo -->
+
+                    <Label Text="Titulo"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        Margin="10,0,0,0" />
+                    <Frame BorderColor="LightGray"
+                        CornerRadius="20"
+                        BackgroundColor="White"
+                        Padding="0"
+                        HasShadow="False"
+                        Margin="0,0,0,20">
+                        <Entry 
+                            x:Name="Titulo"
+                            TextColor="Black"
+                            Keyboard="Default"
+                            HorizontalOptions="Fill"
+                            Margin="5" />
+                    </Frame>
+
+                    <!-- Campo para descripcion -->
+                    <Label Text="Descripción"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        Margin="10,0,0,0" />
+                    <Frame BorderColor="LightGray"
+                        CornerRadius="20"
+                        HeightRequest="200"
+                        BackgroundColor="White"
+                        Padding="0"
+                        HasShadow="False"
+                        Margin="0,0,0,20">
+                        <Entry 
+                            x:Name="Descripcion"
+                            TextColor="Black"
+                            Keyboard="Default"
+                            HorizontalOptions="Fill"
+                            Margin="5" />
+                    </Frame>
+
+
+                    <!-- Campo para tiempo preparacion -->
+                    <Label Text="Tiempo Preparación (min)"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        Margin="10,0,0,0" />
+                    <Frame BorderColor="LightGray"
+                        CornerRadius="20"
+                        BackgroundColor="White"
+                        Padding="0"
+                        HasShadow="False"
+                        Margin="0,0,0,20">
+                        <Entry 
+                            x:Name="TiempoPreparacion"
+                            TextColor="Black"
+                            Keyboard="Default"
+                            HorizontalOptions="Fill"
+                            Margin="5" />
+                    </Frame>
+
+                    <!-- Selector de dificultad -->
+                    <Label Text="Dificultad"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="Black"
+                        Margin="10,0,0,0" />
+                    <Frame BorderColor="LightGray"
+                        CornerRadius="20"
+                        BackgroundColor="White"
+                        Padding="0"
+                        HasShadow="False"
+                        Margin="0,0,0,20">
+                        <Picker x:Name="Dificultad"
+                                Title="Selecciona la dificultad"
+                                TextColor="Black"
+                                HorizontalOptions="Fill"
+                                Margin="5">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Fácil</x:String>
+                                    <x:String>Media</x:String>
+                                    <x:String>Difícil</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </Frame>
+                 </VerticalStackLayout>
+
+
+                 <!-- Botón para guardar cambios -->
+                <Button Text="Guardar Receta"
+                        Margin="20"
+                        WidthRequest="250"
+                        CornerRadius="30"
+                        HeightRequest="50"
+                        BackgroundColor="#84cbea"
+                        TextColor="White"
+                        FontSize="18"
+                        Clicked="OnGuardarClicked"
+                        HorizontalOptions="Center" />
+               
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

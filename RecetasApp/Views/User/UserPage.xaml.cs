@@ -71,14 +71,22 @@ namespace RecetasApp.Views
             _apiService = new ApiService();
 
             InitializeComponent();
-            LoadRecetas();
-            LoadRecetasFavoritas();
-            LoadInfoUser();
+       
             BindingContext = this;
             IsMisRecetasVisible = true;
             IsFavoritasVisible = false;
             CantRecetas.Text = "0";
             CantFav.Text = "0";
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Recargar recetas y recetas favoritas
+            LoadRecetas();
+            LoadRecetasFavoritas();
+            LoadInfoUser();
         }
 
         private void OnMisRecetasBtnClicked(object sender, EventArgs e)
@@ -401,6 +409,14 @@ namespace RecetasApp.Views
                 }
             }
         }
+
+        private async void OnCreateClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreateRecetaPage());
+        }
+
+
+
 
     }
 }

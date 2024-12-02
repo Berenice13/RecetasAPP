@@ -242,8 +242,11 @@
 
                 if (apiResponse.Status == 200 && apiResponse.Data != null)
                 {
-                    // Guardar el token o realizar otras acciones necesarias
-                    var token = apiResponse.Data; // Este sería el token recibido
+                    // Guardar el token
+                    var tokenDetails = apiResponse.Data.Token; 
+                    var token = tokenDetails?.Token;
+                    Preferences.Set("AuthToken", token);
+
                     await DisplayAlert("Éxito", "Usuario creado con éxito", "OK");
                     if (Application.Current is App app)
                     {

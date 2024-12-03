@@ -17,6 +17,8 @@ namespace RecetasApp.Views
         private readonly ApiService _apiService;
 
         private bool isSidebarVisible = false;
+
+        private int userId;
         
         public ObservableCollection<Receta> Recetas
         {
@@ -61,9 +63,9 @@ namespace RecetasApp.Views
             }
         }
 
-
         public UserPage()
         {
+            userId = 0;
             _recetas = new ObservableCollection<Receta>();
             RecetasFiltradas = new List<Receta>();
             _recetasFav = new ObservableCollection<Receta>();
@@ -82,8 +84,6 @@ namespace RecetasApp.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            // Recargar recetas y recetas favoritas
             LoadRecetas();
             LoadRecetasFavoritas();
             LoadInfoUser();
@@ -115,6 +115,9 @@ namespace RecetasApp.Views
                     UserNombre.Text = datosUser!.Nombre;
                     UserCorreo.Text = datosUser!.Email;
                     NombreSide.Text = datosUser!.Nombre;
+                    userId = datosUser!.Id;
+                    Debug.WriteLine("ID: " + userId);
+
                 }
 
             }
@@ -144,7 +147,6 @@ namespace RecetasApp.Views
 
                     foreach (var receta in recetas)
                     {
-                        // Agregar una fila dinámica
                         RecetasGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
                         // Crear el layout horizontal
@@ -186,24 +188,50 @@ namespace RecetasApp.Views
                             TextColor = Colors.Gray
                         };
 
-                        var button = new Button
+                        // Botón Ver Receta
+                        var verRecetaButton = new Button
                         {
                             Text = "Ver Receta",
                             BackgroundColor = Color.FromArgb("#84cbea"),
                             TextColor = Colors.White,
                             CornerRadius = 10,
-                            WidthRequest = 200,
+                            WidthRequest = 100,
                         };
 
-                        button.Clicked += async (sender, e) =>
+                        verRecetaButton.Clicked += async (sender, e) =>
                         {
-                            // Navegar a la página de la receta pasando los datos
                             await Navigation.PushAsync(new VerRecetaPage(receta));
                         };
 
+                        // Botón Editar Receta
+                        var editarRecetaButton = new Button
+                        {
+                            Text = "Editar Receta",
+                            BackgroundColor = Color.FromArgb("#f0ad4e"),
+                            TextColor = Colors.White,
+                            CornerRadius = 10,
+                            WidthRequest = 100,
+                        };
+
+                        editarRecetaButton.Clicked += async (sender, e) =>
+                        {
+                            // Navegar a la página de edición pasando la receta seleccionada
+                            await Navigation.PushAsync(new CreateRecetaPage(userId, receta));
+                        };
+
+                        // Layout para contener ambos botones
+                        var buttonsLayout = new HorizontalStackLayout
+                        {
+                            Spacing = 10,
+                            VerticalOptions = LayoutOptions.Center
+                        };
+
+                        buttonsLayout.Children.Add(verRecetaButton);
+                        buttonsLayout.Children.Add(editarRecetaButton);
+
                         verticalLayout.Children.Add(labelTitle);
                         verticalLayout.Children.Add(labelDetails);
-                        verticalLayout.Children.Add(button);
+                        verticalLayout.Children.Add(buttonsLayout);
 
                         // Agregar la imagen y el contenido al layout horizontal
                         horizontalLayout.Children.Add(image);
@@ -220,13 +248,12 @@ namespace RecetasApp.Views
                             Content = horizontalLayout
                         };
 
-                        // Agregar al Grid
                         RecetasGrid.Children.Add(cardFrame);
-                        Grid.SetRow(cardFrame, row); // Colocar en la fila actual
-                        Grid.SetColumn(cardFrame, 0); // Siempre en la primera columna
-
-                        row++; // Incrementar la fila para el siguiente elemento
+                        Grid.SetRow(cardFrame, row);
+                        Grid.SetColumn(cardFrame, 0);
+                        row++;
                     }
+
                 }
             }
             catch (Exception ex)
@@ -412,7 +439,7 @@ namespace RecetasApp.Views
 
         private async void OnCreateClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new CreateRecetaPage());
+            await Navigation.PushAsync(new CreateRecetaPage(userId, null));
         }
 
 

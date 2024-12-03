@@ -25,7 +25,6 @@ namespace RecetasApp.Views
             RecetaTiempo.Text = _receta.TiempoPreparacion + " minutos";
             RecetaDescripcion.Text = _receta.Descripcion;
             RecetaDificultad.Text = _receta.Dificultad != null ? CapitalizeFirstLetter(_receta.Dificultad) : string.Empty;
-
         }
 
         private string CapitalizeFirstLetter(string input)

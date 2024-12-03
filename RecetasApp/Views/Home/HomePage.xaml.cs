@@ -25,7 +25,6 @@ namespace RecetasApp.Views
             LoadRecetas();
         }
 
-
         private async void LoadCategorias()
         {
             try

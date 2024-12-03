@@ -13,9 +13,14 @@ namespace RecetasApp.Views
         public EditUserPage()
         {
             _apiService = new ApiService();
-            LoadInfoUser();
             InitializeComponent();
             Shell.SetTabBarIsVisible(this, false);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            LoadInfoUser();
         }
 
         private async void LoadInfoUser()

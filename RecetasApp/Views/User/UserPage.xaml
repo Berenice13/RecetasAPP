@@ -107,6 +107,16 @@
                             </HorizontalStackLayout>
                      </VerticalStackLayout>
 
+                <Button Text="Crear Nueva Receta"
+                     BackgroundColor="Transparent"
+                     BorderColor="#84cbea"
+                     CornerRadius="18"
+                     TextColor="Black"
+                     BorderWidth="1"
+                     Margin="5,15,5,0"
+                     Clicked="OnCreateClicked"  >
+                </Button>
+
                 <StackLayout >
                      <Grid x:Name="RecetasGrid" Margin="5, 15, 5, 0" IsVisible="{Binding IsMisRecetasVisible}">
                             <Grid.ColumnDefinitions>
@@ -123,15 +133,8 @@
                      </Grid>
                 </StackLayout>
 
-                <Button Text="Crear Nueva Receta"
-                     BackgroundColor="Transparent"
-                     BorderColor="#84cbea"
-                     CornerRadius="18"
-                     TextColor="Black"
-                     BorderWidth="1"
-                     Clicked="OnCreateClicked"  >
+               
 
-                </Button>
               </VerticalStackLayout>
             </ScrollView>
         </Grid>
@@ -162,8 +165,8 @@
                             <Image Source="user.png" Aspect="AspectFill" />
                      </Frame>
                      <!-- Información del usuario -->
-                     <VerticalStackLayout Margin="0, 15, 2, 0">
-                            <Label x:Name="NombreSide" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                     <VerticalStackLayout Margin="0, 15, 20, 0">
+                            <Label x:Name="NombreSide" FontSize="16" FontAttributes="Bold" TextColor="White" />
                      </VerticalStackLayout>
                      
                      <BoxView HeightRequest="10" VerticalOptions="Fill" />

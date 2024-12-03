@@ -53,3 +53,9 @@ public class RecetaResponse
     [JsonPropertyName("recetas")]
     public List<Receta>? Recetas { get; set; }
 }
+
+public class RecetaDetailResponse
+{
+    [JsonPropertyName("recetas")]
+    public Receta? Recetas { get; set; }
+}
